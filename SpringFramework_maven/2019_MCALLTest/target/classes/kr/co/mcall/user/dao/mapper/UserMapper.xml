@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mcall.user.dao.UserDao">
+	<select id="selectUserInfoCount" resultType="java.lang.Integer">
+	SELECT count(idx) FROM user_info
+	</select>
+	<select id="selectUserInfo" resultType="kr.co.mcall.user.model.UserEntity">
+	SELECT
+			idx, user_id, user_pwd, reg_date, mod_date
+	FROM user_info
+	</select>
+	
+	<insert id="insertUserIfo" parameterType="kr.co.mcall.user.model.UserEntity">
+	INSERT INTO user_info(
+											user_id, user_pwd, reg_date
+											) VALUES(
+											 #{user_id}, #{user_pwd}, now()
+											)
+	</insert>
+	
+	<update id="updateUserInfo" parameterType="kr.co.mcall.user.model.UserEntity">
+	UPDATE user_info SET 
+										user_id=#{user_id},
+										user_pwd=#{user_pwd},
+										mod_date = now()
+	WHERE idx= #{idx}
+	</update>
+	
+	<delete id="delteUserInfo" parameterType="kr.co.mcall.user.model.UserEntity">
+	DELETE FROM user_info WHERE idx=#{idx}
+	</delete>
+</mapper>

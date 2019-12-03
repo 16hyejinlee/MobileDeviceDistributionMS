@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mcall.naver.dao.NaverDao">
+
+	<select id="selectNaverListCount" resultType="java.lang.Integer">
+	SELECT count(date) FROM naver
+	</select>
+	<select id="selectNaverList" resultType="kr.co.mcall.naver.model.NaverEntity">
+	SELECT
+			date, ratio, phone_id, sub_id 
+	FROM naver
+	</select>
+	
+	<select id="selectNaverSearchListCount" parameterType="kr.co.mcall.naver.model.NaverEntity" resultType="java.lang.Integer">
+	SELECT count(date) FROM naver
+		<if test="date !=null and date !=''">
+			WHERE date=${date}
+		</if>
+		<if test="phone_id != null and phone_id !=''">
+			WHERE phone_id=${phone_id}
+		</if>
+	</select>
+	<select id="selectNaverSearchList" parameterType="kr.co.mcall.naver.model.NaverEntity"  resultType="kr.co.mcall.naver.model.NaverEntity">
+	SELECT
+			date, ratio, phone_id, sub_id
+	FROM naver
+		<if test="date !=null and date !=''">
+			WHERE date=${date}
+		</if>
+		<if test="phone_id != null and phone_id !=''">
+			WHERE phone_id=${phone_id}
+		</if>
+	</select>
+</mapper>

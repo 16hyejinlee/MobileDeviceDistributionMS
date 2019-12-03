@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mcall.facebook.dao.FacebookDao">
+
+	<select id="selectFacebookListCount" resultType="java.lang.Integer">
+	SELECT count(date) FROM facebook
+	</select>
+	<select id="selectFacebookList" resultType="kr.co.mcall.facebook.model.FacebookEntity">
+	SELECT
+			date, comments, likes, shares, phone_id, sub_id 
+	FROM facebook
+	</select>
+	
+	<select id="selectFacebookSearchListCount" parameterType="kr.co.mcall.facebook.model.FacebookEntity" resultType="java.lang.Integer">
+	SELECT count(date) FROM facebook
+		<if test="date !=null and date !=''">
+			WHERE date=${date}
+		</if>
+		<if test="phone_id != null and phone_id !=''">
+			WHERE phone_id=${phone_id}
+		</if>
+	</select>
+	<select id="selectFacebookSearchList" parameterType="kr.co.mcall.facebook.model.FacebookEntity"  resultType="kr.co.mcall.facebook.model.FacebookEntity">
+	SELECT
+			date, comments, likes, shares, phone_id, sub_id
+	FROM facebook
+		<if test="date !=null and date !=''">
+			WHERE date=${date}
+		</if>
+		<if test="phone_id != null and phone_id !=''">
+			WHERE phone_id=${phone_id}
+		</if>
+	</select>
+</mapper>
